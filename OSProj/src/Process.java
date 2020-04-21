@@ -30,7 +30,7 @@ public class Process extends Thread {
 		OperatingSystem.printText(OperatingSystem.readFile(OperatingSystem.TakeInput()));
 		
 		setProcessState(this,ProcessState.Terminated);
-		}
+	}
 	
 	private void process2() {
 		
@@ -40,7 +40,7 @@ public class Process extends Thread {
 		String data= OperatingSystem.TakeInput();
 		OperatingSystem.writefile(filename,data);
 		setProcessState(this,ProcessState.Terminated);
-		}
+	}
 	private void process3() {
 		int x=0;
 		while (x<301)
@@ -49,7 +49,7 @@ public class Process extends Thread {
 			x++;
 		}
 		setProcessState(this,ProcessState.Terminated);
-		}
+	}
 	
 	private void process4() {
 	
@@ -60,7 +60,7 @@ public class Process extends Thread {
 			x++;
 		}	
 		setProcessState(this,ProcessState.Terminated);
-		}
+	}
 	private void process5() {
 		
 		OperatingSystem.printText("Enter LowerBound: ");
@@ -79,7 +79,7 @@ public class Process extends Thread {
 		setProcessState(this,ProcessState.Terminated);
 	}
 	
-	 public static void setProcessState(Process p, ProcessState s) {
+	public static void setProcessState(Process p, ProcessState s) {
 		 p.status=s;
 		 if (s == ProcessState.Terminated)
 		 {
@@ -89,5 +89,5 @@ public class Process extends Thread {
 	 
 	 public static ProcessState getProcessState(Process p) {
 		 return p.status;
-	}
+	 }
 }

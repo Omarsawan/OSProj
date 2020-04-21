@@ -19,16 +19,16 @@ public class OperatingSystem {
 	public static String readFile(String name) {
 		String Data="";
 		File file = new File(name);
-	 try {
-		Scanner scan = new Scanner(file);
-		while (scan.hasNextLine())
-		{
-			Data+= scan.nextLine()+"\n";
+		 try {
+			Scanner scan = new Scanner(file);
+			while (scan.hasNextLine())
+			{
+				Data+= scan.nextLine()+"\n";
+			}
+			scan.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
-		scan.close();
-	} catch (FileNotFoundException e) {
-		System.out.println(e.getMessage());
-	}
 		return Data;
 	}
 	
