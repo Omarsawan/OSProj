@@ -12,7 +12,7 @@ public class Scheduler {
 	public void start() {
 		while(!readyQueue.isEmpty()) {
 			Process p = (Process) readyQueue.poll();
-			p.run();
+			p.start();
 			while(Process.getProcessState(p) != ProcessState.Terminated);
 		}
 	}
