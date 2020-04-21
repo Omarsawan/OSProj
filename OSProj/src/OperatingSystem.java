@@ -11,7 +11,7 @@ import java.util.concurrent.Semaphore;
 public class OperatingSystem {
 	
 	public static ArrayList<Thread> ProcessTable;
-
+	public static Scheduler scheduler;
 //	public static int activeProcess= 0;
 	//system calls:
 	// 1- Read from File
@@ -67,21 +67,22 @@ public class OperatingSystem {
 	
 	private static void createProcess(int processID){
 		Process p = new Process(processID);
-		ProcessTable.add(p);
+//		ProcessTable.add(p);
+		scheduler.addProcess(p);
 		Process.setProcessState(p,ProcessState.Ready);
-		p.start();
-		
+//		p.start();
+//		p.run();
 	}
 	
 	public static void main(String[] args) {
    		ProcessTable = new ArrayList<Thread>();
-
+   		scheduler = new Scheduler();
 		createProcess(1);
 		createProcess(2);
 		createProcess(3);
 		createProcess(4);
 		createProcess(5);
-
+		scheduler.start();
 	}
 }
 

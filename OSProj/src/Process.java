@@ -81,10 +81,10 @@ public class Process extends Thread {
 	
 	public static void setProcessState(Process p, ProcessState s) {
 		 p.status=s;
-		 if (s == ProcessState.Terminated)
-		 {
-			 OperatingSystem.ProcessTable.remove(OperatingSystem.ProcessTable.indexOf(p));
-		 }
+//		 if (s == ProcessState.Terminated)
+//		 {
+//			 OperatingSystem.ProcessTable.remove(OperatingSystem.ProcessTable.indexOf(p));
+//		 }
 	}
 	 
 	 public static ProcessState getProcessState(Process p) {
