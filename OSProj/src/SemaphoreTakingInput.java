@@ -1,15 +1,15 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SemaphoreTakingInput {
-	Queue<Process>blockedQueue;
-	boolean available;//if the semaphore is locked ,only the process which locked it can unlock it
-	int processID;//the id of the process which locked the resource
+	private volatile ConcurrentLinkedQueue<Process>blockedQueue;
+	private volatile boolean available;//if the semaphore is locked ,only the process which locked it can unlock it
+	private volatile int processID;//the id of the process which locked the resource
 	public SemaphoreTakingInput() {
-		blockedQueue=new LinkedList<Process>();
+		blockedQueue=new ConcurrentLinkedQueue<Process>();
 		available=true;
 		processID=-1;//when the the resource is available no process is locking it
 	}
+	@SuppressWarnings("deprecation")
 	public void semTakeInputWait(Process p) {
 		if(available) {//the semaphore is available and can be taken
 			available=false;
@@ -17,6 +17,7 @@ public class SemaphoreTakingInput {
 		}
 		else {//the semaphore is locked by another process
 			p.suspend();
+			p.status = ProcessState.Waiting;
 			blockedQueue.add(p);
 		}
 	}
@@ -30,7 +31,7 @@ public class SemaphoreTakingInput {
 		this.processID=-1;
 		if(blockedQueue.size()>0) {//if there are blocked processes that need this resources we can make them return to the ready state
 			Process released=blockedQueue.poll();
-			OperatingSystem.scheduler.readyQueue.add(released);
+			OperatingSystem.scheduler.addProcess(released);
 		}
 	}
 	

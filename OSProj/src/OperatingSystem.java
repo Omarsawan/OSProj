@@ -5,15 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.Semaphore;
+
 
 
 public class OperatingSystem {
-	
-	public static ArrayList<Thread> ProcessTable;
-	public static Scheduler scheduler;
-	public static SemaphoreTakingInput semaphoreTakeInput;
-	public static SemaphoreWritingToFile semaphoreWriteToFile;
+	public volatile static ArrayList<Thread> ProcessTable;
+	public volatile static Scheduler scheduler;
+	public volatile static SemaphoreTakingInput semaphoreTakeInput;
+	public volatile static SemaphoreWritingToFile semaphoreWriteToFile;
+	public volatile static SemaphorePrintOnScreen SemaphorePrintOnScreen;
+	public volatile static SemaphoreReadData semaphoreReadData;
 	
 //	public static int activeProcess= 0;
 	//system calls:
@@ -82,6 +83,8 @@ public class OperatingSystem {
    		scheduler = new Scheduler();
    		semaphoreTakeInput=new SemaphoreTakingInput();
    		semaphoreWriteToFile=new SemaphoreWritingToFile();
+   		semaphoreReadData = new SemaphoreReadData();
+   		SemaphorePrintOnScreen = new SemaphorePrintOnScreen();
    		
 		createProcess(1);
 		createProcess(2);

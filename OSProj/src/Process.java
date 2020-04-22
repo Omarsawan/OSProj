@@ -26,30 +26,36 @@ public class Process extends Thread {
 	
 	private void process1() {
 		
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintWait(this);
 		OperatingSystem.printText("Enter File Name: ");
-		
+
+		// semaphore taking input
 		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
 		String fileName=OperatingSystem.TakeInput();
 		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
 		
+		// semaphore reading data
+		OperatingSystem.semaphoreReadData.SemReadWait(this);
 		String print=OperatingSystem.readFile(fileName);
+		OperatingSystem.semaphoreReadData.SemReadPost(this);
 		
 		OperatingSystem.printText(print);
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintPost(this);
 		
 		setProcessState(this,ProcessState.Terminated);
 	}
 	
 	private void process2() {
-		
+		// semaphore printing on screen
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintWait(this);
 		OperatingSystem.printText("Enter File Name: ");
-		
+
 		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
 		String filename= OperatingSystem.TakeInput();
-		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
 		
 		OperatingSystem.printText("Enter Data: ");
-		
-		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintPost(this);
+
 		String data= OperatingSystem.TakeInput();
 		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
 		
@@ -61,35 +67,40 @@ public class Process extends Thread {
 	}
 	private void process3() {
 		int x=0;
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintWait(this);
 		while (x<301)
 		{ 
 			OperatingSystem.printText(x+"\n");
 			x++;
 		}
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintPost(this);
+
 		setProcessState(this,ProcessState.Terminated);
 	}
 	
 	private void process4() {
 	
 		int x=500;
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintWait(this);
 		while (x<1001)
 		{
 			OperatingSystem.printText(x+"\n");
 			x++;
 		}	
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintPost(this);
+
 		setProcessState(this,ProcessState.Terminated);
 	}
 	private void process5() {
-		
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintWait(this);
 		OperatingSystem.printText("Enter LowerBound: ");
-		
+
 		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
 		String lower= OperatingSystem.TakeInput();
-		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
 		
 		OperatingSystem.printText("Enter UpperBound: ");
-		
-		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
+		OperatingSystem.SemaphorePrintOnScreen.SemPrintPost(this);
+
 		String upper= OperatingSystem.TakeInput();
 		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
 		

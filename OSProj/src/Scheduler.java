@@ -1,10 +1,9 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Scheduler {
-	Queue<Thread> readyQueue;
+	private volatile ConcurrentLinkedQueue<Thread> readyQueue;
 	public Scheduler() {
-		readyQueue = new LinkedList<Thread>();
+		readyQueue = new ConcurrentLinkedQueue<Thread>();
 	}
 	public void addProcess(Process p) {
 		readyQueue.add(p);
