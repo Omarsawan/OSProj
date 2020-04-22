@@ -27,7 +27,14 @@ public class Process extends Thread {
 	private void process1() {
 		
 		OperatingSystem.printText("Enter File Name: ");
-		OperatingSystem.printText(OperatingSystem.readFile(OperatingSystem.TakeInput()));
+		
+		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
+		String fileName=OperatingSystem.TakeInput();
+		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
+		
+		String print=OperatingSystem.readFile(fileName);
+		
+		OperatingSystem.printText(print);
 		
 		setProcessState(this,ProcessState.Terminated);
 	}
@@ -35,10 +42,21 @@ public class Process extends Thread {
 	private void process2() {
 		
 		OperatingSystem.printText("Enter File Name: ");
+		
+		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
 		String filename= OperatingSystem.TakeInput();
+		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
+		
 		OperatingSystem.printText("Enter Data: ");
+		
+		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
 		String data= OperatingSystem.TakeInput();
+		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
+		
+		OperatingSystem.semaphoreWriteToFile.semWriteWait(this);
 		OperatingSystem.writefile(filename,data);
+		OperatingSystem.semaphoreWriteToFile.semWritePost(this);
+		
 		setProcessState(this,ProcessState.Terminated);
 	}
 	private void process3() {
@@ -64,9 +82,17 @@ public class Process extends Thread {
 	private void process5() {
 		
 		OperatingSystem.printText("Enter LowerBound: ");
+		
+		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
 		String lower= OperatingSystem.TakeInput();
+		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
+		
 		OperatingSystem.printText("Enter UpperBound: ");
+		
+		OperatingSystem.semaphoreTakeInput.semTakeInputWait(this);
 		String upper= OperatingSystem.TakeInput();
+		OperatingSystem.semaphoreTakeInput.semTakeInputPost(this);
+		
 		int lowernbr=Integer.parseInt(lower);
 		int uppernbr=Integer.parseInt(upper);
 		String data="";
@@ -75,7 +101,11 @@ public class Process extends Thread {
 		{
 			data+=lowernbr++ +"\n";
 		}	
+		
+		OperatingSystem.semaphoreWriteToFile.semWriteWait(this);
 		OperatingSystem.writefile("P5.txt", data);
+		OperatingSystem.semaphoreWriteToFile.semWritePost(this);
+		
 		setProcessState(this,ProcessState.Terminated);
 	}
 	

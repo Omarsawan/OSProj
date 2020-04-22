@@ -12,6 +12,9 @@ public class OperatingSystem {
 	
 	public static ArrayList<Thread> ProcessTable;
 	public static Scheduler scheduler;
+	public static SemaphoreTakingInput semaphoreTakeInput;
+	public static SemaphoreWritingToFile semaphoreWriteToFile;
+	
 //	public static int activeProcess= 0;
 	//system calls:
 	// 1- Read from File
@@ -77,6 +80,9 @@ public class OperatingSystem {
 	public static void main(String[] args) {
    		ProcessTable = new ArrayList<Thread>();
    		scheduler = new Scheduler();
+   		semaphoreTakeInput=new SemaphoreTakingInput();
+   		semaphoreWriteToFile=new SemaphoreWritingToFile();
+   		
 		createProcess(1);
 		createProcess(2);
 		createProcess(3);
