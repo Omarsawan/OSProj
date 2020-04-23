@@ -37,7 +37,9 @@ public class SemaphorePrintOnScreen {
 		processID = -1;
 		if(!blockedQueue.isEmpty())
 		{
-			OperatingSystem.scheduler.addProcess(blockedQueue.poll());
+			Process released=blockedQueue.poll();
+			released.status = ProcessState.Ready;
+			OperatingSystem.scheduler.addProcess(released);
 		}
 		
 	}
