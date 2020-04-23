@@ -12,6 +12,7 @@ public class Scheduler {
 		while(!readyQueue.isEmpty()) {
 			Process p = (Process) readyQueue.poll();
 			p.start();
+			Process.setProcessState(p, ProcessState.Running);
 			while(Process.getProcessState(p) != ProcessState.Terminated);
 		}
 	}
