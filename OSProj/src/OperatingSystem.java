@@ -71,10 +71,10 @@ public class OperatingSystem {
 	
 	private static void createProcess(int processID){
 		Process p = new Process(processID);
-//		ProcessTable.add(p);
+		ProcessTable.add(p);
 		scheduler.addProcess(p);
 		Process.setProcessState(p,ProcessState.Ready);
-//		p.start();
+		p.start();
 //		p.run();
 	}
 	
@@ -91,7 +91,7 @@ public class OperatingSystem {
 		createProcess(3);
 		createProcess(4);
 		createProcess(5);
-		scheduler.start();
+//		scheduler.start();
 	}
 }
 

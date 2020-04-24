@@ -39,6 +39,7 @@ public class SemaphoreReadData {
 			{
 				Process released=blockedQueue.poll();
 				released.status = ProcessState.Ready;
+				released.resume();
 				OperatingSystem.scheduler.addProcess(released);
 			}
 	}

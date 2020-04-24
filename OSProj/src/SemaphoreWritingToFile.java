@@ -33,6 +33,7 @@ public class SemaphoreWritingToFile {
 		if(blockedQueue.size()>0) {//if there are blocked processes that need this resources we can make them return to the ready state
 			Process released=blockedQueue.poll();
 			released.status = ProcessState.Ready;
+			released.resume();
 			OperatingSystem.scheduler.addProcess(released);
 		}
 	}
