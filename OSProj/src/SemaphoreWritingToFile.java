@@ -11,15 +11,16 @@ public class SemaphoreWritingToFile {
 	}
 	@SuppressWarnings("deprecation")
 	public void semWriteWait(Process p) {
-		if(available) {//the semaphore is available and can be taken
-			available=false;
-			this.processID=p.processID;
-		}
-		else {//the semaphore is locked by another process
-			p.suspend();
+
+		if(!available)
+		{
+			System.out.println(p.processID +" is Blocked while requiring : " + this.getClass());
 			p.status = ProcessState.Waiting;
 			blockedQueue.add(p);
+			p.suspend();
 		}
+		this.processID = p.processID;
+		available = false;
 	}
 	public void semWritePost(Process p) {
 		if(p.processID!=this.processID){//some process which don't have the resource wants to unlock it and it is invalid

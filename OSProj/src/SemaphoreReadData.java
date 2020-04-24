@@ -14,17 +14,16 @@ public class SemaphoreReadData {
 	@SuppressWarnings("deprecation")
 	public void SemReadWait(Process p)
 	{
-		if(this.available)
+
+		if(!available)
 		{
-			this.processID = p.processID;
-			available = false;
-		}
-		else
-		{
-			p.suspend();
+			System.out.println(p.processID +" is Blocked while requiring : " + this.getClass());
 			p.status = ProcessState.Waiting;
 			blockedQueue.add(p);
+			p.suspend();
 		}
+		this.processID = p.processID;
+		available = false;
 	}
 	
 	
