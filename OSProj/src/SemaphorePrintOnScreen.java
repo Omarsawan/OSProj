@@ -20,7 +20,7 @@ public class SemaphorePrintOnScreen {
 			System.out.println(p.processID +" is Blocked while requiring : " + this.getClass());
 			p.status = ProcessState.Waiting;
 			blockedQueue.add(p);
-			p.suspend();
+				p.suspend();
 		}
 		this.processID = p.processID;
 		available = false;
@@ -38,7 +38,7 @@ public class SemaphorePrintOnScreen {
 		{
 			Process released=blockedQueue.poll();
 			released.status = ProcessState.Ready;
-			released.resume();
+			//released.resume();
 			OperatingSystem.scheduler.addProcess(released);
 		}
 		
